@@ -62,9 +62,9 @@ variable (a b c d e f : ℝ)
 
 example (h : a * b = c * d) (h' : e = f) : a * (b * e) = c * (d * f) := by
   rw [h', ← mul_assoc, h, mul_assoc]
-
+--集合所有步骤一起使用？用comma隔开即可
 end
-
+-- section 和end间variable只需要定义一遍，可在不同section内使用相同字母表示不同含义
 section
 variable (a b c : ℝ)
 
@@ -86,6 +86,9 @@ example : (a + b) * (a + b) = a * a + 2 * (a * b) + b * b := by
   rw [mul_add, add_mul, add_mul]
   rw [← add_assoc, add_assoc (a * a)]
   rw [mul_comm b a, ← two_mul]
+--mul_add： “乘法对加法的分配律”，即对于数 x、y、z，有 x * (y + z) = x * y + x * z
+--add_mul： “加法对乘法的分配”（从形式上更偏向乘法对加法分配的对称表述，或者在不同结合、展开场景下的分配律应用）
+--add_mul: (x+y)*z=x*z+y*z
 
 example : (a + b) * (a + b) = a * a + 2 * (a * b) + b * b :=
   calc
@@ -96,15 +99,6 @@ example : (a + b) * (a + b) = a * a + 2 * (a * b) + b * b :=
     _ = a * a + 2 * (a * b) + b * b := by
       rw [mul_comm b a, ← two_mul]
 
-example : (a + b) * (a + b) = a * a + 2 * (a * b) + b * b :=
-  calc
-    (a + b) * (a + b) = a * a + b * a + (a * b + b * b) := by
-      sorry
-    _ = a * a + (b * a + a * b) + b * b := by
-      sorry
-    _ = a * a + 2 * (a * b) + b * b := by
-      sorry
-
 end
 
 -- Try these. For the second, use the theorems listed underneath.
@@ -112,7 +106,12 @@ section
 variable (a b c d : ℝ)
 
 example : (a + b) * (c + d) = a * c + a * d + b * c + b * d := by
-  sorry
+  rw[mul_add,add_mul,add_mul]
+  rw[← add_assoc]--拆括号
+  rw[add_assoc (a*c) (b*c) (a*d)]
+  rw[add_comm (b*c) (a*d) ]
+  rw[← add_assoc]
+
 
 example (a b : ℝ) : (a + b) * (a - b) = a ^ 2 - b ^ 2 := by
   sorry
