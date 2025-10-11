@@ -58,10 +58,15 @@ theorem add_neg_cancel_right (a b : R) : a + b + -b = a := by
   rw[add_zero]
 
 theorem add_left_cancel {a b c : R} (h : a + b = a + c) : b = c := by
-  sorry_if_sorry
+    rw[← neg_add_cancel_left a b]
+    rw[h]
+    rw[← add_assoc]
+    rw[neg_add_cancel]
+    rw[zero_add]
+
 
 theorem add_right_cancel {a b c : R} (h : a + b = c + b) : a = c := by
-  sorry
+    rw[← neg_add_cancel_right a c]
 
 theorem mul_zero (a : R) : a * 0 = 0 := by
   have h : a * 0 + a * 0 = a * 0 + 0 := by
@@ -70,6 +75,7 @@ theorem mul_zero (a : R) : a * 0 = 0 := by
 
 theorem zero_mul (a : R) : 0 * a = 0 := by
   sorry
+
 
 theorem neg_eq_of_add_eq_zero {a b : R} (h : a + b = 0) : -a = b := by
   sorry
