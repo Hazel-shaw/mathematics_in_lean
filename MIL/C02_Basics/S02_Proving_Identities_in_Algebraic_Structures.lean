@@ -53,10 +53,12 @@ theorem neg_add_cancel_left (a b : R) : -a + (a + b) = b := by
 
 -- Prove these:
 theorem add_neg_cancel_right (a b : R) : a + b + -b = a := by
-  sorry
+  rw[add_assoc]
+  rw[add_neg_cancel]
+  rw[add_zero]
 
 theorem add_left_cancel {a b c : R} (h : a + b = a + c) : b = c := by
-  sorry
+  sorry_if_sorry
 
 theorem add_right_cancel {a b c : R} (h : a + b = c + b) : a = c := by
   sorry
@@ -143,4 +145,3 @@ theorem mul_inv_rev (a b : G) : (a * b)⁻¹ = b⁻¹ * a⁻¹ := by
 end MyGroup
 
 end
-
