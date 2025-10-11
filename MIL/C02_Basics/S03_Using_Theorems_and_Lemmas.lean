@@ -13,10 +13,13 @@ variable (h : a ≤ b) (h' : b ≤ c)
 #check (le_refl : ∀ a : Real, a ≤ a)
 #check (le_refl a : a ≤ a)
 #check (le_trans : a ≤ b → b ≤ c → a ≤ c)
+--蕴含是右结合的
 #check (le_trans h : b ≤ c → a ≤ c)
 #check (le_trans h h' : a ≤ c)
 
 end
+
+--lt = less than le = less than or equal
 
 example (x y z : ℝ) (h₀ : x ≤ y) (h₁ : y ≤ z) : x ≤ z := by
   apply le_trans
@@ -123,5 +126,5 @@ example : 2*a*b ≤ a^2 + b^2 := by
 example : |a*b| ≤ (a^2 + b^2)/2 := by
   sorry
 
+--linarith 代数使用
 #check abs_le'.mpr
-

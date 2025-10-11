@@ -67,6 +67,7 @@ theorem add_left_cancel {a b c : R} (h : a + b = a + c) : b = c := by
 
 theorem add_right_cancel {a b c : R} (h : a + b = c + b) : a = c := by
     rw[← neg_add_cancel_right a c]
+    sorry
 
 theorem mul_zero (a : R) : a * 0 = 0 := by
   have h : a * 0 + a * 0 = a * 0 + 0 := by
@@ -95,6 +96,9 @@ end MyRing
 -- Examples.
 section
 variable {R : Type*} [Ring R]
+
+--花括号-隐式参数 定义
+
 
 example (a b : R) : a - b = a + -b :=
   sub_eq_add_neg a b

@@ -62,9 +62,13 @@ variable (a b c d e f : ℝ)
 
 example (h : a * b = c * d) (h' : e = f) : a * (b * e) = c * (d * f) := by
   rw [h', ← mul_assoc, h, mul_assoc]
---集合所有步骤一起使用？用comma隔开即可
+--集合所有步骤一起使用？用comma隔开即可，comma后依旧可以看见推荐
 end
 -- section 和end间variable只需要定义一遍，可在不同section内使用相同字母表示不同含义
+--variable用于括号外定义
+
+
+
 section
 variable (a b c : ℝ)
 
@@ -90,6 +94,12 @@ example : (a + b) * (a + b) = a * a + 2 * (a * b) + b * b := by
 --add_mul： “加法对乘法的分配”（从形式上更偏向乘法对加法分配的对称表述，或者在不同结合、展开场景下的分配律应用）
 --add_mul: (x+y)*z=x*z+y*z
 
+
+
+--calc 草稿纸式  长不等式 首选
+-- A = B
+--   = C
+--   = D
 example : (a + b) * (a + b) = a * a + 2 * (a * b) + b * b :=
   calc
     (a + b) * (a + b) = a * a + b * a + (a * b + b * b) := by
@@ -136,6 +146,9 @@ example (a b c d : ℝ) (hyp : c = d * a + b) (hyp' : b = a * d) : c = 2 * a * d
   rw [← two_mul (a * d)] at hyp
   rw [← mul_assoc 2 a d] at hyp
   exact hyp
+
+-- ring策略非常强大，适用于任何交换环的恒等式
+
 
 example : c * b * a = b * (a * c) := by
   ring
