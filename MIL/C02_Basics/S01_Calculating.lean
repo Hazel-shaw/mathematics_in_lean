@@ -31,8 +31,8 @@ example (a b c : ℝ) : a * (b * c) = b * (c * a) := by
 
 example (a b c : ℝ) : a * (b * c) = b * (a * c) := by
   rw [← mul_assoc]
-  rw [mul_comm a b]
-  rw [mul_assoc b a c]
+  rw [mul_comm a ]
+  rw [mul_assoc b ]
 
 -- Using facts from the local context.
 example (a b c d e f : ℝ) (h : a * b = c * d) (h' : e = f) : a * (b * e) = c * (d * f) := by
@@ -125,7 +125,12 @@ example : (a + b) * (c + d) = a * c + a * d + b * c + b * d := by
 
 
 example (a b : ℝ) : (a + b) * (a - b) = a ^ 2 - b ^ 2 := by
-  rw[← mul_assoc]
+  calc
+    (a + b) * (a - b) = a * a - b * b +(a * b - b * a):= by
+      rw[add_mul]
+
+
+
 
 #check pow_two a
 #check mul_sub a b c
