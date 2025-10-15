@@ -51,7 +51,7 @@ example (a b c d : ℝ) (hyp : c = b * a - d) (hyp' : d = a * b) : c = 0 := by
   rw[hyp]
   rw[hyp']
   rw[mul_comm]
-  ring
+  rw[sub_self]--功能包含于ring（这句可以用ring）  sub_self专门用来完成a-a=0的证明。
 
 example (a b c d e f : ℝ) (h : a * b = c * d) (h' : e = f) : a * (b * e) = c * (d * f) := by
   rw [h', ← mul_assoc, h, mul_assoc]
@@ -62,14 +62,15 @@ variable (a b c d e f : ℝ)
 
 example (h : a * b = c * d) (h' : e = f) : a * (b * e) = c * (d * f) := by
   rw [h', ← mul_assoc, h, mul_assoc]
---集合所有步骤一起使用？用comma隔开即可，comma后依旧可以看见推荐
+--同时执行多个rw命令一起使用，用comma隔开即可，You still see the incremental progress by placing the cursor after a comma in any list of rewrites.
 end
--- section 和end间variable只需要定义一遍，可在不同section内使用相同字母表示不同含义
---variable用于括号外定义
+-- section和end间 variable只需要定义一遍，方便在不同section内使用相同字母表示不同含义，防止混淆！
+--variable用于括号外声明变量
 
-
+--可以通过将声明放在<section ... end>块中来限定其作用域。
 
 section
+--一个命令来确定表达式的类型：
 variable (a b c : ℝ)
 
 #check a
@@ -80,6 +81,10 @@ variable (a b c : ℝ)
 #check mul_assoc c a b
 #check mul_comm a
 #check mul_comm
+
+#check mul_assoc
+#check two_mul a --!
+--calc和ring无法#check？
 
 end
 
@@ -96,7 +101,7 @@ example : (a + b) * (a + b) = a * a + 2 * (a * b) + b * b := by
 
 
 
---calc 草稿纸式  长不等式 首选
+--calc 草稿纸式  长不等式的首选，证明更清晰。
 -- A = B
 --   = C
 --   = D
@@ -105,10 +110,11 @@ example : (a + b) * (a + b) = a * a + 2 * (a * b) + b * b :=
     (a + b) * (a + b) = a * a + b * a + (a * b + b * b) := by
       rw [mul_add, add_mul, add_mul]
     _ = a * a + (b * a + a * b) + b * b := by
-      rw [← add_assoc, add_assoc (a * a)]
+     rw [← add_assoc, add_assoc (a * a)]
     _ = a * a + 2 * (a * b) + b * b := by
       rw [mul_comm b a, ← two_mul]
-
+--calc有严格的缩进来体现区块的起止位置
+--以by开头的表达式是一个calc，即证明项。
 end
 
 -- Try these. For the second, use the theorems listed underneath.
@@ -123,14 +129,20 @@ example : (a + b) * (c + d) = a * c + a * d + b * c + b * d := by
   rw[← add_assoc]
 
 
+--编写calc证明的一种方法是：
+--先用sorry策略概述证明以进行论证，确保Lean接受这些表达式的模运算
+--然后使用策略对各个步骤进行论证。
+
 
 example (a b : ℝ) : (a + b) * (a - b) = a ^ 2 - b ^ 2 := by
-  calc
-    (a + b) * (a - b) = a * a - b * b +(a * b - b * a):= by
-      rw[add_mul]
-
-
-
+  rw[add_mul]
+  rw[mul_sub]
+  rw[pow_two a]
+  rw[mul_sub]
+  rw[pow_two b]
+  rw[mul_comm b a]
+  rw[add_sub]
+  ring
 
 #check pow_two a
 #check mul_sub a b c
