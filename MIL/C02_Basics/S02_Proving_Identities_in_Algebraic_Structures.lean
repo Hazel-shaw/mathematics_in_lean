@@ -66,8 +66,13 @@ theorem add_left_cancel {a b c : R} (h : a + b = a + c) : b = c := by
 
 
 theorem add_right_cancel {a b c : R} (h : a + b = c + b) : a = c := by
-    rw[← neg_add_cancel_right a c]
-    sorry
+  rw [← add_neg_cancel_right a b]
+  rw[h]
+  rw[add_assoc]
+  rw[add_neg_cancel]
+  rw[add_zero]
+
+
 
 theorem mul_zero (a : R) : a * 0 = 0 := by
   have h : a * 0 + a * 0 = a * 0 + 0 := by
@@ -75,21 +80,34 @@ theorem mul_zero (a : R) : a * 0 = 0 := by
   rw [add_left_cancel h]
 
 theorem zero_mul (a : R) : 0 * a = 0 := by
-  sorry
+  have h : 0 * a + 0 * a = 0 * a + 0 := by
+    rw [← add_mul, add_zero, add_zero]
+  rw [add_left_cancel h]
+
 
 
 theorem neg_eq_of_add_eq_zero {a b : R} (h : a + b = 0) : -a = b := by
-  sorry
+  rw[← neg_add_cancel_left a b]
+  rw[h,add_zero]
+  --rw[← add_assoc,neg_add_cancel,zero_add]
+  --应该把两边尽量趋近，不要急着消除
+
+
 
 theorem eq_neg_of_add_eq_zero {a b : R} (h : a + b = 0) : a = -b := by
-  sorry
+  --rw[← neg_add_cancel_left a b,h,add_zero]
+  symm--等式左右交换
+  apply neg_eq_of_add_eq_zero
+  rw[add_comm,h]
+
 
 theorem neg_zero : (-0 : R) = 0 := by
   apply neg_eq_of_add_eq_zero
   rw [add_zero]
 
 theorem neg_neg (a : R) : - -a = a := by
-  sorry
+  apply neg_eq_of_add_eq_zero --apply既可以由“h”推结论，也可以由结论转化成“h”形式。可逆
+  rw[neg_add_cancel]
 
 end MyRing
 
@@ -115,7 +133,7 @@ namespace MyRing
 variable {R : Type*} [Ring R]
 
 theorem self_sub (a : R) : a - a = 0 := by
-  sorry
+  rw[sub_eq_add_neg]
 
 theorem one_add_one_eq_two : 1 + 1 = (2 : R) := by
   norm_num
