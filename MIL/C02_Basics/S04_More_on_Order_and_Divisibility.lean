@@ -52,8 +52,6 @@ example : max a b = max b a := by
 example : min (min a b) c = min a (min b c) := by
   sorry
 
-
-
 theorem aux : min a b + c ≤ min (a + c) (b + c) := by
   sorry
 example : min a b + c = min (a + c) (b + c) := by
