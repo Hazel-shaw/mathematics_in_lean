@@ -10,6 +10,9 @@ variable (a b c d : ℝ)
 #check (min_le_right a b : min a b ≤ b)
 #check (le_min : c ≤ a → c ≤ b → c ≤ min a b)
 
+-- #check (max_le_left a b : max a b ≥ a) 直接模仿min后报错
+#check (le_max_left)
+
 example : min a b = min b a := by
   apply le_antisymm
   · show min a b ≤ min b a
@@ -34,20 +37,23 @@ example : min a b = min b a := by
 example : min a b = min b a := by
   apply le_antisymm
   repeat
-    apply le_min
+    apply le_min --表示较小值 ≤ 原值
     apply min_le_right
     apply min_le_left
 
 
-  example : max a b = max b a := by -----
+example : max a b = max b a := by
   apply le_antisymm
   repeat
-    apply max_le
+    apply max_le --表示原值 ≤ 较大值
     apply le_max_right
     apply le_max_left
 
 example : min (min a b) c = min a (min b c) := by
   sorry
+
+
+
 theorem aux : min a b + c ≤ min (a + c) (b + c) := by
   sorry
 example : min a b + c = min (a + c) (b + c) := by
