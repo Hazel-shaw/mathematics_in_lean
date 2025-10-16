@@ -111,10 +111,13 @@ example (h : a ≤ b) : log (1 + exp a) ≤ log (1 + exp b) := by
 
 example : 0 ≤ a ^ 2 := by
   -- apply?
-  exact sq_nonneg a
+  exact sq_nonneg a --这是在干啥
 
 example (h : a ≤ b) : c - exp b ≤ c - exp a := by
-  sorry
+  apply add_le_add
+
+
+
 
 example : 2*a*b ≤ a^2 + b^2 := by
   have h : 0 ≤ a^2 - 2*a*b + b^2
