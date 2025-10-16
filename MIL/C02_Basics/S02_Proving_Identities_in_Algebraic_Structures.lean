@@ -164,12 +164,23 @@ variable {G : Type*} [Group G]
 namespace MyGroup
 
 theorem mul_inv_cancel (a : G) : a * a⁻¹ = 1 := by
-  --rw[← inv_mul_cancel,mul_comm]  为什么会变成a * a⁻¹ = ?m.35682⁻¹ * ?m.35682
-  have h : (a * a⁻¹)⁻¹ * (a * a⁻¹ * (a * a⁻¹)) = 1 := by
-    rw[]
+  --rw[← inv_mul_cancel a]  --为什么会变成a * a⁻¹ = ?m.35682⁻¹ * ?m.35682;在命令最后加上a的明确指向可以解决。
+  --inv使用不了乘法交换律吗
+  have h : a * a⁻¹ * a = 1 * a := by
+    rw [mul_assoc]
+    rw [inv_mul_cancel]
+    rw [one_mul, mul_one]
+  -- 我们要得到 a * a⁻¹ = 1，根据群的消去律，若 x * a = y * a，则 x = y
+  -- x = a * a⁻¹，y = 1，可以用消去律
+  apply mul_right_cancel h
+
+
+
 
 theorem mul_one (a : G) : a * 1 = a := by
-  sorry
+  rw[← inv_mul_cancel a,← mul_assoc,mul_inv_cancel,one_mul]
+  --inv_mul_cancel & mul_inv_cancel 一个a⁻¹在前，后一个a/^1在后
+
 
 theorem mul_inv_rev (a b : G) : (a * b)⁻¹ = b⁻¹ * a⁻¹ := by
   sorry
