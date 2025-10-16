@@ -164,7 +164,9 @@ variable {G : Type*} [Group G]
 namespace MyGroup
 
 theorem mul_inv_cancel (a : G) : a * a⁻¹ = 1 := by
-  rw[]
+  --rw[← inv_mul_cancel,mul_comm]  为什么会变成a * a⁻¹ = ?m.35682⁻¹ * ?m.35682
+  have h : (a * a⁻¹)⁻¹ * (a * a⁻¹ * (a * a⁻¹)) = 1 := by
+    rw[]
 
 theorem mul_one (a : G) : a * 1 = a := by
   sorry
