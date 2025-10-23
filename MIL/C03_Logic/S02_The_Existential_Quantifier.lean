@@ -60,10 +60,12 @@ example {c : ℝ} (ubf : FnHasUb f) (h : c ≥ 0) : FnHasUb fun x ↦ c * f x :=
 example : FnHasUb f → FnHasUb g → FnHasUb fun x ↦ f x + g x := by
   rintro ⟨a, ubfa⟩ ⟨b, ubgb⟩
   exact ⟨a + b, fnUb_add ubfa ubgb⟩
+--尖括号用来匹配成对的类型：元素、证明
 
 example : FnHasUb f → FnHasUb g → FnHasUb fun x ↦ f x + g x :=
   fun ⟨a, ubfa⟩ ⟨b, ubgb⟩ ↦ ⟨a + b, fnUb_add ubfa ubgb⟩
 
+--rintro = intro + rcases
 end
 
 example (ubf : FnHasUb f) (ubg : FnHasUb g) : FnHasUb fun x ↦ f x + g x := by
@@ -166,3 +168,7 @@ example (surjg : Surjective g) (surjf : Surjective f) : Surjective fun x ↦ g (
   sorry
 
 end
+
+
+-- 单射、双射、满射
+-- field simp 分式化简

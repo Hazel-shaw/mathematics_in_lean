@@ -102,6 +102,7 @@ example (mf : Monotone f) (mg : Monotone g) : Monotone fun x ↦ f x + g x := by
 
 example (mf : Monotone f) (mg : Monotone g) : Monotone fun x ↦ f x + g x :=
   fun a b aleb ↦ add_le_add (mf aleb) (mg aleb)
+--证明项：改写策略式证明—— 更简洁，可读性差
 
 example {c : ℝ} (mf : Monotone f) (nnc : 0 ≤ c) : Monotone fun x ↦ c * f x :=
   sorry
@@ -178,3 +179,5 @@ example (injg : Injective g) (injf : Injective f) : Injective fun x ↦ g (f x) 
   sorry
 
 end
+
+ -- mul_right_inj'
