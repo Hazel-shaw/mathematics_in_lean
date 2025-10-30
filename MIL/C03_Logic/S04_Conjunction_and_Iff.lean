@@ -64,7 +64,12 @@ example {x y : ℝ} (h : x ≤ y ∧ x ≠ y) : ¬y ≤ x :=
   fun h' ↦ h.right (le_antisymm h.left h')
 
 example {m n : ℕ} (h : m ∣ n ∧ m ≠ n) : m ∣ n ∧ ¬n ∣ m :=
-  sorry
+  ⟨ h.1, fun h_contra ↦ h.2 (dvd_antisymm h.1 h_contra) ⟩
+  --fun 构造函数 左边为输入，↦ 右边为
+  --构造式证明，而非策略式证明。可以先写出策略式，再写构造式
+  --  ↦ 或者 => 表示映射（函数里）  类型里（ →
+  --陪域 值域
+  --h.1 指h的左边；h1就指一个假设
 
 example : ∃ x : ℝ, 2 < x ∧ x < 4 :=
   ⟨5 / 2, by norm_num, by norm_num⟩
